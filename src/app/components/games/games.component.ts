@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Game } from '../../models/game.model';
 import { AppState } from '../../state/app.state';
-import { AsyncPipe } from '@angular/common';
+import { GameService } from '../../services/game.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-games',
@@ -15,27 +16,25 @@ export class GamesComponent {
   @Output() addFavoriteEvent = new EventEmitter<String>();
 
   username: string = '';
+  games: Game[] = []
 
-  constructor(private readonly appStates: AppState){
+  constructor(
+    private readonly appStates: AppState,
+    private readonly gameService: GameService,
+    private readonly router: Router
+  ) {
     this.username = appStates.username.username.snapshot();
+    gameService.getAll().subscribe({
+      next: (data) => this.games = data,
+      error: (err) => console.error("Error en cargar los uegos:" + err),
+      complete: () => {}
+    }
+    );
   }
 
-  games: Game[] = [
-    {
-      id: 1,
-      name: 'Stellar Blade'
-    },
-    {
-      id: 2,
-      name: 'Lies Of P'
-    },
-    {
-      id: 3,
-      name: 'Spider-man PS5'
-    }
-  ]
 
-  favorite(gameName: String): void {
-    this.addFavoriteEvent.emit(gameName);
+  favorite(gameId: Number): void {
+    //this.addFavoriteEvent.emit(gameName);
+    this.router.navigateByUrl(`/games/${gameId}`)
   }
 }

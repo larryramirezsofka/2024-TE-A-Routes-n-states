@@ -3,6 +3,7 @@ import { GamesComponent } from './components/games/games.component';
 import { ErrorComponent } from './components/error/error.component';
 import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
 import { UserComponent } from './components/user/user.component';
+import { GameComponent } from './components/game/game.component';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,17 @@ export const routes: Routes = [
             {
                 path: '',
                 component: GamesComponent,
+                outlet: 'main'
+            }
+        ]
+    },
+    {
+        path: 'games/:id',
+        component: MainLayoutComponent,
+        children: [
+            {
+                path: '',
+                component: GameComponent,
                 outlet: 'main'
             }
         ]

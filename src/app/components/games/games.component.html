@@ -1,6 +1,6 @@
 <h3>Juegos de la semana de {{ username }}:</h3>
 <ul>
   @for (game of games; track game.id) {
-    <li (click)="favorite(game.name)" >{{ game.name }}</li>
+    <li (click)="favorite(game.id)" >{{ game.name }}</li>
   }
 </ul>
