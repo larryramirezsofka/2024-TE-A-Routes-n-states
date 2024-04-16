@@ -1,0 +1,14 @@
+<section>
+  @if (isLoggedIn) {
+    <p>Bienvenido, {{ username | async }}!</p>
+    <button (click)=" isLoggedIn = false ">Salir</button>
+
+    @if (favoriteGame !== '') {
+      <p>El juego favorito es: {{ favoriteGame }} </p>
+    }
+
+  } @else {
+    <p>Inicia Sesión!</p>
+    <button (click)=" isLoggedIn = true ">Entrar</button>
+  }
+</section>
